@@ -27,6 +27,7 @@ public class Project1 {
         bsTree.add(75, bsTree.getRoot());
         bsTree.add(3, bsTree.getRoot());
         */ 
+        
         bsTree.add(60000, bsTree.getRoot());
         bsTree.add(1, bsTree.getRoot());
         bsTree.add(2, bsTree.getRoot());

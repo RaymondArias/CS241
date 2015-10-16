@@ -8,17 +8,22 @@ public class BinarySearchTree {
         root = null;
     }
     
+    /**
+     * Adds an element to a binary search tree
+     * @param element
+     * @param node 
+     */
     public void add (int element, BSTNode node)
     {
         BSTNode cursor = node;
         BSTNode newElement = new BSTNode(element, null, null);
        
         
-        if(cursor == null)
+        if(cursor == null)  //Tree is empty
         {
             root = newElement;
         }
-        else if(cursor.getData() == element)
+        else if(cursor.getData() == element) //Data is already is BST
         {
             System.out.println(element + " already exists, ignore");
         }
@@ -51,6 +56,14 @@ public class BinarySearchTree {
             }
         }
     }
+    /**
+     * Recursively removes element from BST and returns true; else element 
+     * is not found and method returns false
+     * @param target
+     * @param node
+     * @param parent
+     * @return 
+     */
     public boolean remove(int target, BSTNode node, BSTNode parent)
     {
         BSTNode cursor = node;
@@ -102,10 +115,19 @@ public class BinarySearchTree {
         }
         
     }
+    /**
+     * Returns root of BST
+     * @return 
+     */
     public BSTNode getRoot()
     {
         return root;
     }
+    /**
+     * Performs pre-order traversal and prints data from every node of
+     * of the binary search tree
+     * @param node 
+     */
     public void preOrderTraversal(BSTNode node)
     {
         if(node == null)
@@ -119,6 +141,11 @@ public class BinarySearchTree {
         if(node.getRight() != null)
             this.preOrderTraversal(node.getRight());
     }
+     /**
+     * Performs in-order traversal and prints data from every node of
+     * of the binary search tree
+     * @param node 
+     */
     public void inOrderTraversal(BSTNode node)
     {
         if(node == null)
@@ -132,6 +159,11 @@ public class BinarySearchTree {
         if(node.getRight() != null)
              this.inOrderTraversal(node.getRight());
     }
+     /**
+     * Performs post-order traversal and prints data from every node of
+     * of the binary search tree
+     * @param node 
+     */
     public void postOrderTraversal(BSTNode node)
     {
         if(node == null)
@@ -145,6 +177,12 @@ public class BinarySearchTree {
             this.postOrderTraversal(node.getRight());
         System.out.print(node.getData() + " ");
     }
+    /**
+     * Returns predecessor of int value passed in
+     * by recursively search through binary search tree.
+     * @param value
+     * @return 
+     */
     public int getPredecessor(int value)
     {
         if(root == null)
@@ -177,6 +215,12 @@ public class BinarySearchTree {
                
         }
     }
+    /**
+     * Returns successor of int value passed in
+     * by recursively search through binary search tree.
+     * @param value
+     * @return 
+     */
     public int getSucessor(int value)
     {
          if(root == null)
@@ -209,6 +253,12 @@ public class BinarySearchTree {
                
         }
     }
+    /**
+     * Returns node with data matching value passed
+     * @param value
+     * @param node
+     * @return 
+     */
     public BSTNode getNode(int value, BSTNode node)
     {
         
@@ -230,6 +280,13 @@ public class BinarySearchTree {
         }
         return null;
     }
+    /**
+     * Returns parents of node 
+     * @param node
+     * @param parentNode
+     * @param traverseNode
+     * @return 
+     */
     public BSTNode getParent(BSTNode node, BSTNode parentNode, BSTNode traverseNode)
     {
         if(traverseNode.getData() == node.getData())
@@ -245,6 +302,9 @@ public class BinarySearchTree {
             return this.getParent(node, parentNode, traverseNode.getRight());
         }
     }
+    /**
+     * Display commands that can be ran
+     */
     public void showMenu()
     {
          System.out.println("I Insert a value");
@@ -254,6 +314,11 @@ public class BinarySearchTree {
          System.out.println("E Exit the program");
          System.out.println("H Display this message");
     }
+    /**
+     * returns the number representation of the user's input
+     * @param regString
+     * @return 
+     */
     public String stringTokenizer(String regString)
     {
         return regString.substring(2, regString.length());
