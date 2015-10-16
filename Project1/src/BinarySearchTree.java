@@ -200,6 +200,8 @@ public class BinarySearchTree {
             if(parent == null)
                 return -99;
             BSTNode grandParent = getParent(parent, null, root);
+            if(grandParent == null)
+                return -99;
             if(node == parent.getRight())
                 return parent.getData();
             while(parent != grandParent.getRight())
