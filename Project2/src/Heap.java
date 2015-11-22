@@ -1,12 +1,12 @@
-import java.util.Arrays;
-import java.util.Random;
 
 /**
- * Classed used to create heap
+ * Class used to create heap
  * using sequential insertion method
- * @author raymond
+ * @author Raymond Arias
  *
  */
+import java.util.Arrays;
+
 public class Heap {
 	private int [] heapArray;	//Array that holds the heap
 	private int numberOfSwaps;	//Number of swaps required to create heap
@@ -19,6 +19,13 @@ public class Heap {
 		numberOfSwaps = 0;
 		dataCount = 0;
 	}
+	/**
+	 * Adds data to heap array if data is not already in array
+	 * Once in heap the method reheapifies the heap upward.
+	 * The method also keeps track of the number of swaps needed to
+	 * reheapify heap and increments dataCount.
+	 * @param element
+	 */
 	public void add(int element)
 	{
 		if(contains(element))
@@ -26,29 +33,43 @@ public class Heap {
 		heapArray[dataCount] = element;
 		int i = dataCount;
 		
-		while(heapArray[i] > heapArray[(int) Math.floor((i - 1)/2)])
+		while(heapArray[i] > heapArray[(int) Math.floor((i - 1)/2)]) 	//While child [i] is larger than parent
 		{
-			int temp = heapArray[i];
+			//Swap child and parent values
+			int temp = heapArray[i];	
 			heapArray[i] = heapArray[(int) Math.floor((i - 1)/2)];
 			heapArray[(int) Math.floor((i - 1)/2)] = temp;
-			i = (int) Math.floor((i - 1)/2);
+			i = (int) Math.floor((i - 1)/2); //set i to new child and reiterate
 			numberOfSwaps++;
 		}
 		dataCount++;
 			
 			
 	}
+	/**
+	 * Returns the number of swaps needed to
+	 * restore build heap
+	 * @return
+	 */
 	public int getNumOfSwaps()
 	{
 		return numberOfSwaps;
 	}
+	/**
+	 * Removes root of heap and reheapifies the heap
+	 */
 	public void remove()
 	{
 		int root = 0;
 		heapArray[root] = heapArray[dataCount -1];
 		heapArray[dataCount - 1] = -1;
 		dataCount--;
-		while (heapArray[root] < heapArray[2 * root + 1] || heapArray[root] < heapArray[2 * root + 1])
+		
+		if(2 * root + 2 >= heapArray.length)
+		{
+			doubleArraySize();
+		}
+		while (heapArray[root] < heapArray[2 * root + 1] || heapArray[root] < heapArray[2 * root + 2])
 		{
 			//left child is larger so swap heapArray[newRoot] and left child
 			if(heapArray[2 * root + 1] > heapArray[2 * root + 2])
@@ -67,24 +88,29 @@ public class Heap {
 				root = 2 * root + 2;
 				
 			}
+			if(2 *root + 2 >= heapArray.length)
+			{
+				doubleArraySize();
+			}
 		}
 	}
-	/*public static void main(String []args)
+	/**
+	 * Displays first ten values in heap
+	 */
+	public void displayFirstTen()
 	{
-		OptimalHeap testHeap = new OptimalHeap();
-		Heap seqHeap = new Heap();
-		Random randInt = new Random();
-		
 		for(int i = 0; i < 10; i++)
 		{
-			seqHeap.add(i+1);
-			testHeap.add(i+1);
+			System.out.print(heapArray[i] + ", ");
 		}
-		testHeap.reheapifyUpward();
-		System.out.println("Test");
 		
 	}
-*/
+	/**
+	 * Returns true if data is in heap;
+	 * else returns false
+	 * @param element
+	 * @return
+	 */
 	public boolean contains(int element)
 	{
 		for (int i = 0; i < dataCount; i++)
@@ -93,5 +119,16 @@ public class Heap {
 				return true;
 		}
 		return false;
+	}
+	/**
+	 * Double array size, used to ensure
+	 * index out of bound exception is not 
+	 * thrown.
+	 */
+	public void doubleArraySize()
+	{
+		int []tempArray = heapArray;
+		heapArray = Arrays.copyOf(tempArray, 2 * tempArray.length);
+		tempArray = null;
 	}
 }
